@@ -46,25 +46,25 @@ $ ->
       
   # the player class
   class Player
-    @food: [ new Food, new Food ]
-    @wood: [ ]
-    @clay: [ ]
-    @reed: [ ]
-    @stone: [ ]
-    @grain: [ ]
-    @vegetable: [ ]
-    personal_supply: [@food, @wood, @clay, @reed, @stone, @grain, @vegetable]
+    personal_supply: {
+      food: [ new Food, new Food ]
+      wood: []
+      clay: []
+      reed: []
+      stone: []
+      grain: []
+      vegetable: []
+    }
     display: () ->
       ps.html("")
       counter = 0
-      for array in @personal_supply
-        if array.length > 0
-          for item in array 
-            item.display(counter)
-            $('li.item').each ->
-              if counter == $(this).data('ps-order')
-                item.color( $(this) )
-            counter++
+      for property, value of @personal_supply
+        for item in value
+          item.display( counter )
+          $('li.item').each ->
+            if counter == $(this).data('ps-order')
+              item.color( $(this) )
+          counter++
   
   
   class Option
@@ -90,7 +90,7 @@ $ ->
     text: "Take One Grain"
     action: ( player, div ) ->
       div.click ->
-        player.personal_supply[5].push( new Grain )
+        player.personal_supply.grain.push( new Grain s)
         player.display()
         
   class PlowAField extends Option
@@ -112,18 +112,42 @@ $ ->
     text: "Day Labor for Two Food"
     action: ( player, div ) ->
       div.click ->
-        console.log "Day Labor clicked"
-    
+        for i in [0..1]
+          player.personal_supply[0].push( new Food )
+        player.display()
+            
   class ThreeWood extends Option
     @wood: []
     order: 6
-    text: "Take #{@wood.length} Wood"
+    text: "Take #{@wood.length} Wood" 
     refresh: () -> @wood.push( new Wood ) for i in [0..2]
     action: ( player, div ) ->
       div.click ->
-        player.personal_supply[1].push( new Wood ) for wood in @wood
+        for i in ThreeWood.wood.length
+            player.personal_store.wood.push( new Wood )
         @wood = []
-      
+  
+  class OneClay extends Option
+    @clay: []
+    order: 7
+    text: "Take #{@clay.length} Wood"
+    refresh: () -> @clay.push( new Clay )
+    action: ( player, div ) ->
+      div.click ->
+        for i in OneClay.clay.length
+          player.personal_store.clay.push( new Clay )
+        @clay = []
+  
+  class OneReed extends Option
+    @reed: []
+    order: 8
+    text: "Teke #{@reed.lenght} Reed"
+    refresh: () -> @reed.push( new Reed )
+    action: ( player, div ) ->
+      div.click ->
+        for i in OneReed.reed.length 
+          player.personal_store.reed.push( new Reed )
+        @reed = []     
     
   
   set_up_option_board = ( player ) ->
@@ -135,6 +159,8 @@ $ ->
       new Occupy
       new DayLaborer
       new ThreeWood
+      new OneClay
+      new OneReed
     ]
     counter = 0
     for option in options
