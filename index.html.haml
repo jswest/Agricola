@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title This is Agricola!
+    %link{ :href => "css/style.css", :rel => "stylesheet", :style=>"text/css" }
+    %script{ :src => "js/jquery.js", :type => "text/javascript" }
+    %script{ :src => "js/ui.js", :type => "text/javascript" }
+    %script{ :src => "js/coffeescript.js", :type => "text/javascript" }
+    %script{ :src => "js/Resource.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/Animal.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/FamilyMember.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/Player.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/Room.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/Action.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/action_board.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/test.js.coffee", :type => "text/coffeescript" }
+    %script{ :src => "js/nav.js.coffee", :type => "text/coffeescript" }
+  %body
+    
+    #primary-nav-wrapper.in
+      %nav#primary-nav-control
+      %ul#primary-menu.in
+        %li#see_action_board Action Board
+        %li#see_own_farmyard See Own Farmyard
+      #resources
+    
+    %header#username-header
+      %hgroup
+        %h1#username
+    #farmyard-board.board
+    #action-board.board
